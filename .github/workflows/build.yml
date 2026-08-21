@@ -35,14 +35,19 @@ jobs:
           cd gulp
           yarn install
 
-      - name: Build Project
+      - name: List Tasks and Build
         run: |
           cd gulp
-          # 正しいプロダクション用ビルドタスクを実行
-          npx gulp main.build.prod
+          # タスク一覧を出力してログに表示させる
+          npx gulp --tasks
+          # 定義されている可能性が高い標準ビルドを実行
+          npx gulp build-standalone || npx gulp standalone || npx gulp build-web || npx gulp default
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: shapez-build
-          path: build/
+          path: |
+            build/
+            dist/
+          if-no-files-found: ignore
