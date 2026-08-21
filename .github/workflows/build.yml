@@ -34,8 +34,17 @@ jobs:
         run: |
           cd gulp
           yarn install
-          # タスク名を指定せず実行（defaultタスクを呼び出す）
-          npx gulp --max-old-space-size=4096
+          # shapez.io の gulp タスクは "default" (yarn gulp) で watch が起動してしまう可能性があるため、
+          # CI向けに1回限りのビルドを行うコマンド (例: yarn build または node でビルドスクリプトを実行) 
+          # package.json の scripts を確認できないため、gulp の standalone ビルドタスクを呼び出す。
+          # 'buildStandalone' などのタスク名が存在するケースが多い。
+          # 'yarn run build' がルート package.json にあるか確認してから実行するフォールバック
+          if grep -q '"build"' ../package.json; then
+            cd ..
+            yarn build
+          else
+            yarn gulp buildStandalone || yarn gulp
+          fi
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
