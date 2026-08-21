@@ -34,8 +34,8 @@ jobs:
         run: |
           cd gulp
           yarn install
-          # 開発用サーバーを立ち上げず、ビルドのみを行って正常終了させる
-          npx gulp build
+          # タスク名を指定せず実行（defaultタスクを呼び出す）
+          npx gulp --max-old-space-size=4096
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
