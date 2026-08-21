@@ -38,22 +38,11 @@ jobs:
       - name: Build Project
         run: |
           cd gulp
-          npx gulp createAtlas || true
-          npx gulp buildHtml || true
-          npx gulp buildResources || true
-          npx gulp buildJS || true
-          npx gulp buildCss || true
-
-      - name: Prepare Artifact
-        run: |
-          # 成果物まとめ用のフォルダを作成
-          mkdir -p ../staging
-          cd ..
-          # 重い「node_modules」やGit履歴を除外し、残りの全ファイルをstagingにコピーする
-          rsync -a --exclude 'node_modules' --exclude '.git' --exclude 'staging' ./ staging/
+          # 正しいプロダクション用ビルドタスクを実行
+          npx gulp main.build.prod
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: shapez-build
-          path: staging/
+          path: build/
