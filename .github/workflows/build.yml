@@ -38,7 +38,6 @@ jobs:
       - name: Build Project
         run: |
           cd gulp
-          # 確認できた正確なビルドタスクを実行
           npx gulp build.web-shapezio
 
       - name: Upload build artifact
