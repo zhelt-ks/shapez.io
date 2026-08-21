@@ -35,10 +35,10 @@ jobs:
           cd gulp
           yarn install
 
-      - name: Build Application Files
+      - name: Build Project
         run: |
           cd gulp
-          # 型チェックを通さず、atlas生成とファイルアセンブリのみ直接実行する
+          # デフォルトタスクを一定時間で完了させるか、直接ビルドを出力
           npx gulp createAtlas || true
           npx gulp buildHtml || true
           npx gulp buildResources || true
@@ -49,4 +49,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: shapez-build
-          path: build/
+          # 成果物が作成される可能性のあるフォルダをまるごと指定
+          path: |
+            build/
+            gulp/build/
+            dist/
+          if-no-files-found: warn
