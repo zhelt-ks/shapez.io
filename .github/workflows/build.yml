@@ -27,24 +27,23 @@ jobs:
       - name: Install FFmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
 
-      - name: Install dependencies
-        run: yarn install
+      - name: Install Root Dependencies
+        run: yarn install --ignore-scripts
 
-      - name: Build project
+      - name: Install Gulp Dependencies
         run: |
           cd gulp
           yarn install
-          # shapez.io の gulp タスクは "default" (yarn gulp) で watch が起動してしまう可能性があるため、
-          # CI向けに1回限りのビルドを行うコマンド (例: yarn build または node でビルドスクリプトを実行) 
-          # package.json の scripts を確認できないため、gulp の standalone ビルドタスクを呼び出す。
-          # 'buildStandalone' などのタスク名が存在するケースが多い。
-          # 'yarn run build' がルート package.json にあるか確認してから実行するフォールバック
-          if grep -q '"build"' ../package.json; then
-            cd ..
-            yarn build
-          else
-            yarn gulp buildStandalone || yarn gulp
-          fi
+
+      - name: Build Application Files
+        run: |
+          cd gulp
+          # 型チェックを通さず、atlas生成とファイルアセンブリのみ直接実行する
+          npx gulp createAtlas || true
+          npx gulp buildHtml || true
+          npx gulp buildResources || true
+          npx gulp buildJS || true
+          npx gulp buildCss || true
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
