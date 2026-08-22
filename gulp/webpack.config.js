@@ -43,7 +43,7 @@ module.exports = ({
                 G_IS_DEV: "true",
                 G_IS_RELEASE: "false",
                 G_IS_BROWSER: "true",
-                G_IS_STANDALONE: "true",
+                G_IS_STANDALONE: JSON.stringify(standalone),
                 G_IS_STEAM_DEMO: JSON.stringify(steamDemo),
                 G_BUILD_TIME: "" + new Date().getTime(),
                 G_BUILD_COMMIT_HASH: JSON.stringify(getRevision()),
