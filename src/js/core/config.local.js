@@ -3,7 +3,7 @@ export default {
     /* dev:start */
     // -----------------------------------------------------------------------------------
     // Quickly enters the game and skips the main menu - good for fast iterating
-    // fastGameEnter: true,
+    fastGameEnter: true,
     // -----------------------------------------------------------------------------------
     // Skips any delays like transitions between states and such
     // noArtificialDelays: true,
@@ -122,5 +122,6 @@ export default {
     // Visualizes the shape grouping on belts
     // showShapeGrouping: true
     // -----------------------------------------------------------------------------------
+    demo: false,
     /* dev:end */
 };
