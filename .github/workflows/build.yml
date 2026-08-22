@@ -38,7 +38,7 @@ jobs:
       - name: Build Project
         run: |
           cd gulp
-          npx gulp build.standalone-html
+          npx gulp build.standalone-steam
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
