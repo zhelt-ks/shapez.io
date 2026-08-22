@@ -15,7 +15,7 @@
 const BUILD_VARIANTS = {
     "web-localhost": {
         standalone: false,
-        environment: "dev",
+        environment: "prod",
         buildArgs: {},
     },
     "web-shapezio-beta": {
