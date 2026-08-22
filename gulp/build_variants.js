@@ -14,7 +14,7 @@
  */
 const BUILD_VARIANTS = {
     "web-localhost": {
-        standalone: false,
+        standalone: true,
         environment: "dev",
         buildArgs: {},
     },
